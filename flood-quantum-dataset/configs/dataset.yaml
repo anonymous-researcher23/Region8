@@ -1,0 +1,26 @@
+patch:
+  size: 32
+bands:
+  order: [VV, VH, B2, B3, B4, B8]
+labeling:
+  flood_frac_pos: 0.10
+  flood_frac_neg: 0.01
+  discard_between: true
+split:
+  method: scene_id
+  seed: 1337
+  ratios: {train: 0.70, val: 0.15, test: 0.15}
+normalize:
+  method: p1_p99
+  fit_on: train
+  target_range: [-1.0, 1.0]
+features:
+  flatten_dim: 6144
+  pca_dims: {sim: 16, hw: 8}
+  standardize: train_only
+quantum:
+  angle_encoding:
+    clip: 3.0
+    map: "theta = clip(z, -clip, clip) * (pi/2)/clip"
+  amplitude_encoding:
+    definition: "use 3 qubits for 8D (2^3), normalize vector to unit norm"
