@@ -1,0 +1,53 @@
+{
+  "backend": "AerSimulator(counts)",
+  "angle_col": "theta_hw",
+  "n_layers": 2,
+  "shots_train": 256,
+  "shots_eval": 2048,
+  "iters": 80,
+  "train_subset": 2048,
+  "val_subset": 2048,
+  "pos_weight": 1.7161803713527852,
+  "best_iter": 77,
+  "best_thr": 0.5,
+  "best_val_subset_f1": 0.724907063197026,
+  "wall_time_sec": 20415.97752404213,
+  "val": {
+    "accuracy": 0.7759508933464869,
+    "precision": 0.6618620958317102,
+    "recall": 0.7745023552651573,
+    "f1": 0.7137655790505532,
+    "roc_auc": 0.8450175149296839,
+    "confusion_matrix": [
+      [
+        9061,
+        2604
+      ],
+      [
+        1484,
+        5097
+      ]
+    ]
+  },
+  "test": {
+    "accuracy": 0.7599291541434092,
+    "precision": 0.6479382085461567,
+    "recall": 0.7594918224299065,
+    "f1": 0.6992941176470588,
+    "roc_auc": 0.823324322074998,
+    "confusion_matrix": [
+      [
+        8958,
+        2826
+      ],
+      [
+        1647,
+        5201
+      ]
+    ]
+  },
+  "opt_result": {
+    "fun": 0.8530244827270508,
+    "nfev": -1
+  }
+}
