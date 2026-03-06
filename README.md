@@ -226,9 +226,12 @@ Example results (SEN1FLOODS11):
 | VQC | Region8 | 0.9317 | 0.8184 | 0.8675 |
 | Logistic Regression | Region8 | 0.9224 | 0.7834 | 0.8565 |
 
-![FloodPatch_SEN1FLOODS11](./Figures/Figure3.PNG)
-![FloodPatch_SEN12MS](./Figures/Figure3.PNG)
-![Non-FloodPatch_DEEPFLOOD](./Figures/Figure3.PNG)
+![FloodPatch_SEN1FLOODS11](./Figures/Result1.PNG)
+![FloodPatch_SEN12MS](./Figures/Result2.PNG)
+![Non-FloodPatch_DEEPFLOOD](./Figures/Result3.PNG)
+
+Probability Distribution of Flooded and Non-Flooded Regions
+![Non-FloodPatch_DEEPFLOOD](./Figures/probability_distribution.png)
 
 ---
 
