@@ -1,60 +1,252 @@
 # Region8
-# Spatially-Aware Quantum Encoding (Region8) for Flood Patch Classification (ECCV 2026)
+## Spatially-Aware Quantum Encoding for Flood Patch Classification (ECCV 2026)
 
-This repository contains the official implementation for the ECCV 2026 submission:
+Official implementation for the paper:
 
-**"Spatially-Aware Quantum Encoding for Flood Patch Classification in Multi-Modal Remote Sensing"**.
+**Spatially-Aware Quantum Encoding for Flood Patch Classification in Multi-Modal Remote Sensing**
 
-We propose **Region8**, a spatially-aware and quantum-compatible encoding that preserves coarse spatial layout by pooling a 32×32 multi-modal patch into a fixed **4×2 grid** (8 regions), producing an **8D vector** that maps **one-to-one onto 8 qubits**. We compare against a conventional **PCA8** flattened baseline and evaluate with:
-- Logistic Regression
-- RBF-SVM
-- 8-qubit Variational Quantum Classifier (VQC) with locality-aligned entanglement
-
-## Contents
-1. Introduction
-2. Key Highlights
-3. Dependencies
-4. Data Preparation
-5. Train
-6. Test / Evaluate
-7. Reproducing Paper Tables & Figures
-8. Acknowledgements
-9. Citation
+Region8 is a spatially-aware encoding designed for flood classification using multi-modal Sentinel-1 SAR and Sentinel-2 optical imagery.  
+Instead of flattening patches before quantum encoding, Region8 preserves coarse spatial layout by pooling a 32×32 image patch into **8 spatial regions**, producing an **8-dimensional vector that maps directly to 8 qubits**.
 
 ---
 
-## Introduction
+# Contents
 
-Most quantum remote-sensing pipelines flatten image patches and apply PCA before encoding into a VQC, which discards spatial structure.  
-**Region8** instead preserves locality by explicit region pooling, maintaining interpretability under strict 8-qubit constraints.
-
-**Region8 summary**
-- Patch size: 32×32×C (Sentinel-1 VV/VH + Sentinel-2 B2/B3/B4/B8)
-- Grid: 4×2 regions → 8 region features → 8 angles → 8 qubits
-- Entanglement: restricted to neighboring regions (spatially aligned)
-
----
-
-## Key Highlights
-- **Spatially-aware quantum encoding:** Region8 preserves coarse layout without increasing feature dimension beyond 8.
-- **Direct region-to-qubit mapping:** each qubit corresponds to a specific spatial region.
-- **Local entanglement topology:** aligns circuit bias with image locality.
-- **Fair comparison:** PCA8 and Region8 are both 8D; identical train/val/test sizes and threshold tuning.
-- **Reproducibility-first:** scripts provided to regenerate features, train, and reproduce paper tables.
+1. Introduction  
+2. Key Highlights  
+3. Dependencies  
+4. Dataset Preparation  
+5. Feature Extraction  
+6. Training  
+7. Testing  
+8. Results  
+9. Acknowledgements  
+10. Citation  
 
 ---
 
-## Dependencies
+# Introduction
+
+Flood detection using satellite imagery is important for disaster response and environmental monitoring.  
+Multi-modal remote sensing data from **Sentinel-1 SAR** and **Sentinel-2 optical imagery** provides complementary information for detecting flooded regions.
+
+Most quantum learning pipelines flatten image patches and apply PCA before quantum encoding, which removes spatial information.
+
+**Region8** introduces a spatially-aware encoding that preserves locality while remaining compatible with **8-qubit quantum models**.
+
+Pipeline overview:
+
+```
+32×32 patch
+    ↓
+4 × 2 spatial grid
+    ↓
+8 region features
+    ↓
+8-dimensional vector
+    ↓
+Angle encoding
+    ↓
+8-qubit Variational Quantum Classifier
+```
+
+---
+
+# Key Highlights
+
+• **Spatially-aware encoding**  
+Region8 preserves spatial layout instead of flattening image patches.
+
+• **Region-to-qubit mapping**  
+Each region maps directly to one qubit.
+
+• **Local entanglement topology**  
+Quantum circuit connections follow neighboring spatial regions.
+
+• **Fair comparison with classical models**  
+Both PCA8 and Region8 produce the same **8-dimensional feature vectors**.
+
+• **Cross-dataset validation**  
+Experiments conducted on:
+
+- SEN1FLOODS11  
+- DEEPFLOOD  
+- SEN12MS  
+
+---
+
+# Dependencies
+
 Tested on:
-- Ubuntu 20.04+
-- Python 3.10+
-- PyTorch (for any optional deep components; not required for classical baselines)
-- NumPy, SciPy, scikit-learn
-- pandas
-- matplotlib
-- Qiskit (for VQC)
 
-### Setup (conda)
+```
+Ubuntu 20.04+
+Python 3.10+
+```
+
+Required libraries:
+
+```
+numpy
+pandas
+scikit-learn
+matplotlib
+qiskit
+tqdm
+```
+
+Install dependencies:
+
 ```bash
-conda env create -f environment.yml
-conda activate region8
+pip install -r requirements.txt
+```
+
+---
+
+# Dataset Preparation
+
+Download the following datasets.
+
+### 1. DEEPFLOOD Dataset
+
+Includes Sentinel-1 SAR, Sentinel-2 optical imagery, UAV references, and auxiliary layers.
+
+https://figshare.com/articles/dataset/DEEPFLOOD_DATASET_High-Resolution_Dataset_for_Accurate_Flood_Mappingand_Segmentation/28328339
+
+---
+
+### 2. SEN1FLOODS11 Dataset
+
+https://github.com/cloudtostreet/Sen1Floods11
+
+---
+
+### 3. SEN12MS Dataset
+
+https://mediatum.ub.tum.de/1474000
+
+---
+
+Place datasets in:
+
+```
+data/raw/
+```
+
+Example structure:
+
+```
+data
+ ├── raw
+ │   ├── sen1floods11
+ │   ├── deepflood
+ │   └── sen12ms
+```
+
+---
+
+# Feature Extraction
+
+Generate feature representations.
+
+### PCA8 baseline
+
+```bash
+python scripts/build_pca_features.py
+```
+
+### Region8 encoding
+
+```bash
+python scripts/build_region8_features.py
+```
+
+Region8 divides each patch into **8 spatial regions** and computes region-level statistics combining optical water cues and SAR scattering features.
+
+---
+
+# Training
+
+Train classical and quantum models.
+
+### Logistic Regression
+
+```bash
+python src/models/train_logreg.py
+```
+
+### RBF-SVM
+
+```bash
+python src/models/train_rbf_svm.py
+```
+
+### Variational Quantum Classifier
+
+```bash
+python src/models/train_vqc.py
+```
+
+---
+
+# Testing
+
+Evaluate trained models:
+
+```bash
+python scripts/evaluate_models.py
+```
+
+Metrics reported:
+
+- AUC  
+- Accuracy  
+- Precision  
+- Recall  
+- F1 score  
+- Log-loss  
+
+Decision thresholds are selected on the validation set.
+
+---
+
+# Results
+
+Region8 improves classification performance by preserving spatial locality.
+
+Example results (SEN1FLOODS11):
+
+| Model | Feature | AUC | F1 | Accuracy |
+|------|------|------|------|------|
+| RBF-SVM | Region8 | **0.9574** | **0.8693** | **0.9090** |
+| VQC | Region8 | 0.9317 | 0.8184 | 0.8675 |
+| Logistic Regression | Region8 | 0.9224 | 0.7834 | 0.8565 |
+
+---
+
+# Acknowledgements
+
+This work uses publicly available datasets:
+
+- SEN1FLOODS11  
+- DEEPFLOOD  
+- SEN12MS  
+
+We thank the dataset creators and the remote sensing research community.
+
+---
+
+# Citation
+
+If you use this repository, please cite:
+
+```bibtex
+@inproceedings{talreja2026region8,
+title={Spatially-Aware Quantum Encoding for Flood Patch Classification in Multi-Modal Remote Sensing},
+author={Talreja, Jagrati and Gebre, Tewodros Syum and Hashemi-Beni, Leila},
+booktitle={European Conference on Computer Vision (ECCV)},
+year={2026}
+}
+```
+
+---
