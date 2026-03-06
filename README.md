@@ -236,17 +236,7 @@ We thank the dataset creators and the remote sensing research community.
 
 ---
 
-# Citation
 
-If you use this repository, please cite:
 
-```bibtex
-@inproceedings{talreja2026region8,
-title={Spatially-Aware Quantum Encoding for Flood Patch Classification in Multi-Modal Remote Sensing},
-author={Talreja, Jagrati and Gebre, Tewodros Syum and Hashemi-Beni, Leila},
-booktitle={European Conference on Computer Vision (ECCV)},
-year={2026}
-}
-```
 
 ---
