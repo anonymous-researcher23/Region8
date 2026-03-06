@@ -151,6 +151,7 @@ data
 # Feature Extraction
 
 Generate feature representations.
+![Local Entanglement and spatial alignment](./Figures/Figure3.PNG)
 
 ### PCA8 baseline
 
@@ -224,6 +225,10 @@ Example results (SEN1FLOODS11):
 | RBF-SVM | Region8 | **0.9574** | **0.8693** | **0.9090** |
 | VQC | Region8 | 0.9317 | 0.8184 | 0.8675 |
 | Logistic Regression | Region8 | 0.9224 | 0.7834 | 0.8565 |
+
+![FloodPatch_SEN1FLOODS11](./Figures/Figure3.PNG)
+![FloodPatch_SEN12MS](./Figures/Figure3.PNG)
+![Non-FloodPatch_DEEPFLOOD](./Figures/Figure3.PNG)
 
 ---
 
