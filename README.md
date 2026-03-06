@@ -36,6 +36,8 @@ Most quantum learning pipelines flatten image patches and apply PCA before quant
 
 Pipeline overview:
 
+![PCA8 and Region8](./Figures/Figure1.png)
+
 ```
 32×32 patch
     ↓
