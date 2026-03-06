@@ -7,6 +7,7 @@ Official implementation for the paper:
 
 Region8 is a spatially-aware encoding designed for flood classification using multi-modal Sentinel-1 SAR and Sentinel-2 optical imagery.  
 Instead of flattening patches before quantum encoding, Region8 preserves coarse spatial layout by pooling a 32×32 image patch into **8 spatial regions**, producing an **8-dimensional vector that maps directly to 8 qubits**.
+![PCA8 and Region8](./Figures/Figure1.PNG)
 
 ---
 
@@ -35,8 +36,6 @@ Most quantum learning pipelines flatten image patches and apply PCA before quant
 **Region8** introduces a spatially-aware encoding that preserves locality while remaining compatible with **8-qubit quantum models**.
 
 Pipeline overview:
-
-![PCA8 and Region8](./Figures/Figure1.png)
 
 ```
 32×32 patch
